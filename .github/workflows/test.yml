@@ -19,7 +19,7 @@ jobs:
 
 
       - name: Edit Readme
-        run: echo "Hello World 3 " >> README.md
+        run: echo "Hello World 5 " >> README.md
 
       - name: Commit and Push Changes
         id: commit-and-push
@@ -45,8 +45,12 @@ jobs:
         run: cat README.md
           
       - name: edit README
-        run: echo "Hello World 4 " >> README.md
+        run: echo "Hello World 6 " >> README.md
 
+
+      - name: Pull changes in the repository
+        run: |
+          git pull
       
       - name: Commit and Push Changes
         id: commit-and-push
