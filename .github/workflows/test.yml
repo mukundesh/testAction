@@ -1,0 +1,54 @@
+name: testAction
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  first_job:
+    runs-on: ubuntu-latest
+    outputs:
+      commit_hash: ${{ steps.commit-and-push.outputs.commit_hash }}
+
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+
+      - name: Edit Readme
+        run: echo "Hello World 1 " >> README.md
+
+      - name: Commit and Push Changes
+        id: commit-and-push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: After README CHANGE
+
+  second_job:
+    runs-on: ubuntu-latest
+    needs: fetch_site
+    outputs:
+      commit_hash: ${{ steps.commit-and-push.outputs.commit_hash }}
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.first_jobs.outputs.commit_hash }}
+          fetch-depth: 0
+
+
+      - name: echo README
+        run: cat README.md
+          
+      - name: edit README
+        run: echo "Hello World 2 " >> README.md
+      
+      - name: Commit and Push Changes
+        id: commit-and-push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: After second README CHANGE
