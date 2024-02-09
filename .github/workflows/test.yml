@@ -19,7 +19,7 @@ jobs:
 
 
       - name: Edit Readme
-        run: echo "Hello World 1 " >> README.md
+        run: echo "Hello World 3 " >> README.md
 
       - name: Commit and Push Changes
         id: commit-and-push
@@ -37,15 +37,16 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.first_jobs.outputs.commit_hash }}
           fetch-depth: 0
+          ref: main
 
 
       - name: echo README
         run: cat README.md
           
       - name: edit README
-        run: echo "Hello World 2 " >> README.md
+        run: echo "Hello World 4 " >> README.md
+
       
       - name: Commit and Push Changes
         id: commit-and-push
